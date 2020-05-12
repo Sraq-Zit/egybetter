@@ -3,10 +3,10 @@
 let href;
 let watchOverlay;
 let box = $('.verticalDynamic> .mbox');
-u.req('').then(html => {
+u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html').then(html => {
   box.before(box = box.clone());
   box.find('.bdb>strong').text('EgyBetter');
-  box.find('.pda>strong').attr('class', 'green').html(html);
+  box.find('.pda:not(.bdb)>strong').attr('class', 'green').html(html);
 });
 
 document.onkeydown = e => { e.code == "Escape" && $('.i-min.egybetter')[0].click(); };
