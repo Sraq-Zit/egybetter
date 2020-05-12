@@ -2,8 +2,9 @@
 
 let href;
 let watchOverlay;
-let box = $('.verticalDynamic> .mbox');
 u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html').then(html => {
+  if (html) return;
+  let box = $('.verticalDynamic> .mbox');
   box.before(box = box.clone());
   box.find('.bdb>strong').text('EgyBetter');
   box.find('.pda:not(.bdb)>strong').attr('class', 'green').html(html);
