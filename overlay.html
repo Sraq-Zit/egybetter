@@ -1,0 +1,55 @@
+<div style="
+    position: fixed; display: flex; align-items: center; justify-content: center; top: 0; left: 0;
+    width: 100%; height: 100%; background: #000000b5; z-index: 999; display:none;
+    transition: top .5s ease-out;" id="__egyb_overlay">
+
+    <div id='dim' style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
+        background-color: #000000e8; transition: all .5s ease-out; z-index: 1; pointer-events: none;"
+        onclick="$(this).removeClass('fadeIn');"></div>
+
+    <a class="msg_box notice i i-pc" style=" opacity: 0.7; width: 80px; text-align: center;
+        position: absolute; left: 50%; top: 0; font-size: 1.7rem;
+        transform: translate(-50%, -50%); padding-bottom: 59px;
+        border-radius: 31px;" onclick="$('#__egyb_overlay').css('top', 0)">
+    </a>
+    <div class="mbox tam" style="max-width: 97vw; max-height: 96vh;">
+        <div class="pda bdb hd tam">
+            <a class="msg_box i i-close error egybetter" style="float: right; padding: 0 2px; margin: 0 5px;"
+                title="إغلاق" onclick="
+                    $('#__egyb_overlay').hide(); localStorage.removeItem('egybetter_player');
+                    $('.egybetter_player').show();
+                "></a>
+            <a class="msg_box i i-lock green egybetter" style="float: right; padding: 0 2px; margin: 0 5px;" onclick="
+                    localStorage.setItem('hide_egyb_player', $(this).hasClass('i-unlock')? '' : 1);
+                    $(this).toggleClass('i-unlock error');
+                 "></a>
+            <a class="msg_box i i-min notice egybetter" style="float: right; padding: 0 2px; margin: 0 5px;"
+                title="تنحية" onclick="$('#__egyb_overlay').css('top', '100%')"></a>
+            <a class="msg_box i i-old egybetter"
+                style="float: right; padding: 0 2px; margin: 0 5px; z-index: 2; position: relative;" onclick="
+                    $('#dim').toggleClass('fadeIn');
+                 "></a>
+            <strong></strong>
+
+        </div>
+        <iframe class="auto-size" allowfullscreen=""
+            style="max-height: calc(100vh - 95px); position: relative; z-index: 2;">
+        </iframe>
+        <div style="height: 100%; padding: 0%;">
+            <img height="50px">
+            <a class="mgh btn b prev" href="#" style="float: right; margin: 7px; width: 20%;">السابق</a>
+            <a class="btn b next" href="#" style="float: left; margin: 7px; width: 20%;">التالي</a>
+            <!-- <div class="msg_box info" style="margin: 0;">
+                <span>
+                    <i class="msg_box i i-lock green" style="padding: 0 2px; margin: 0"></i>
+                    <i class="msg_box i i-unlock green error" style="padding: 0 2px; margin: 0 5px;"></i>
+                    <strong>يشير القفل إلى اختيارك في استعمال هذه الميزة تلقائيا عند كل مشاهدة</strong>
+                </span>
+                <span style="margin-right: 20px;">
+                    <i class="msg_box i i-min notice" style="padding: 0 2px; margin: 0 5px;"></i>
+                    <strong>لإخفاء هذا المشغل</strong>
+                </span>
+            </div> -->
+        </div>
+    </div>
+</div>

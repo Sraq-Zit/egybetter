@@ -1,0 +1,107 @@
+{
+  "name": "EgyBetter",
+  "version": "3.2.4",
+  "manifest_version": 2,
+  "description": "مسح الاعلانات عن ايجي بيست بالاضافة لمزايا أخرى",
+  "browser_action": {
+    "default_title": "EgyBetter",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "permissions": [
+    "*://dlzm790g.com/*",
+    "*://velocitycdn.com/*",
+    "*://onclickmega.com/*",
+    "*://onclicksuper.com/*",
+    "*://deloton.com/*",
+    "*://go.onclasrv.com/*",
+    "*://www.youradexchange.com/*",
+    "*://c.adexchangemachine.com/*",
+    "*://egybest.org/*",
+    "*://vidstream.to/*",
+    "*://vidstream.online/*",
+    "*://vidstream.kim/*",
+    "*://native.propellerclick.com/*",
+    "downloads",
+    "webRequest",
+    "cookies",
+    "tabs",
+    "webRequestBlocking"
+  ],
+  "web_accessible_resources": [
+    "*.html",
+    "icon.png",
+    "imgs/*"
+  ],
+  "background": {
+    "scripts": [
+      "jquery.min.js",
+      "kickout.js"
+    ],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "jquery.min.js",
+        "utils.js",
+        "md5.js"
+      ],
+      "css": [
+        "style.css"
+      ],
+      "matches": [
+        "*://egybest.org/*",
+        "*://vidstream.to/f/*",
+        "*://vidstream.online/f/*",
+        "*://vidstream.kim/f/*",
+        "*://vidstream.to/embed/*",
+        "*://vidstream.online/embed/*",
+        "*://vidstream.kim/embed/*"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "js": [
+        "grabber.js",
+        "a.js"
+      ],
+      "matches": [
+        "*://egybest.org/*"
+      ],
+      "exclude_matches": [
+        "*://egybest.org/watch/*"
+      ],
+      "all_frames": true
+    },
+    {
+      "js": [
+        "vidstream.js"
+      ],
+      "matches": [
+        "*://vidstream.to/f/*",
+        "*://vidstream.online/f/*",
+        "*://vidstream.kim/f/*"
+      ],
+      "all_frames": true
+    },
+    {
+      "js": [
+        "player.js"
+      ],
+      "css": [
+        "icon-remover.css"
+      ],
+      "matches": [
+        "*://vidstream.to/embed/*",
+        "*://vidstream.online/embed/*",
+        "*://vidstream.kim/embed/*",
+        "*://egybest.org/watch/*"
+      ],
+      "all_frames": true
+    }
+  ]
+}
