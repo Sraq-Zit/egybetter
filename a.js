@@ -3,7 +3,7 @@
 let href;
 let watchOverlay;
 u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html').then(html => {
-  if (html) return;
+  if (!html.trim()) return;
   let box = $('.verticalDynamic> .mbox');
   box.before(box = box.clone());
   box.find('.bdb>strong').text('EgyBetter');
