@@ -2,7 +2,7 @@
 
 let href;
 let watchOverlay;
-let time = Date.now();
+let time;
 let getAnnouncement = _ => u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html')
   .then(html => {
     if (!html.trim()) return;
@@ -10,17 +10,19 @@ let getAnnouncement = _ => u.req('https://raw.githubusercontent.com/Sraq-Zit/egy
     if (!box.length && (box = $('.verticalDynamic>.mbox')))
       box.before(box = box.clone().addClass('egybetter'));
 
-    box.find('.bdb>strong').text('EgyBetter');
-    box.find('.pda:not(.bdb)>strong').attr('class', 'green').html(html);
+    box.find('.bdb>strong').text('EgyBetter').attr('class', 'green');
+    box.find('.pda:not(.bdb)>strong')
+      .removeClass('red')
+      .css('text-align', 'right')
+      .html(html);
   });
-
 document.onkeydown = e => { e.code == "Escape" && $('.i-min.egybetter')[0].click(); };
 const f = async function (adblock = 1) {
   if (adblock && href == location.href) return;
 
   href = location.href;
 
-  if (Date.now() - time > 6e4)
+  if (!time || Date.now() - time > 6e4)
     getAnnouncement() && (time = Date.now());
 
 
