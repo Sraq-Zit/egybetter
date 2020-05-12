@@ -2,19 +2,27 @@
 
 let href;
 let watchOverlay;
-u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html').then(html => {
-  if (!html.trim()) return;
-  let box = $('.verticalDynamic> .mbox');
-  box.before(box = box.clone());
-  box.find('.bdb>strong').text('EgyBetter');
-  box.find('.pda:not(.bdb)>strong').attr('class', 'green').html(html);
-});
+let time = Date.now();
+let getAnnouncement = _ => u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html')
+  .then(html => {
+    if (!html.trim()) return;
+    let box = $('.verticalDynamic>.mbox.egybetter');
+    if (!box.length && (box = $('.verticalDynamic>.mbox')))
+      box.before(box = box.clone().addClass('egybetter'));
+
+    box.find('.bdb>strong').text('EgyBetter');
+    box.find('.pda:not(.bdb)>strong').attr('class', 'green').html(html);
+  });
 
 document.onkeydown = e => { e.code == "Escape" && $('.i-min.egybetter')[0].click(); };
 const f = async function (adblock = 1) {
   if (adblock && href == location.href) return;
 
   href = location.href;
+
+  if (Date.now() - time > 6e4)
+    getAnnouncement() && (time = Date.now());
+
 
   !/\/(movie|episode)\//g.test(location.href) &&
     watchOverlay && watchOverlay.hide().find('iframe').attr('src', 'about:blank');
