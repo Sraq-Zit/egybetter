@@ -3,9 +3,11 @@
 let href;
 let watchOverlay;
 let box = $('.verticalDynamic> .mbox');
-box.before(box = box.clone());
-box.find('.bdb>strong').text('EgyBetter');
-box.find('.pda>strong').html(``);
+u.req('').then(html => {
+  box.before(box = box.clone());
+  box.find('.bdb>strong').text('EgyBetter');
+  box.find('.pda>strong').attr('class', 'green').html(html);
+});
 
 document.onkeydown = e => { e.code == "Escape" && $('.i-min.egybetter')[0].click(); };
 const f = async function (adblock = 1) {
