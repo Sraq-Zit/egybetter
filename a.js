@@ -6,6 +6,10 @@ let time;
 let getAnnouncement = _ => u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html')
   .then(html => {
     if (!html.trim()) return;
+    // I'm adding this here in case that last update was rejected because of some sort of suspicion that
+    // this might be fetching external scripts
+    if ($(html).find('script').length) return;
+
     let box = $('.verticalDynamic>.mbox.egybetter');
     if (!box.length && (box = $('.verticalDynamic>.mbox')))
       box.before(box = box.clone().addClass('egybetter'));
@@ -16,6 +20,9 @@ let getAnnouncement = _ => u.req('https://raw.githubusercontent.com/Sraq-Zit/egy
       .css('text-align', 'right')
       .html(html);
   });
+
+top.onmessage = e => e.data.ad && chrome.runtime.sendMessage({ ad: 1 });
+
 document.onkeydown = e => { e.code == "Escape" && $('.i-min.egybetter')[0].click(); };
 const f = async function (adblock = 1) {
   if (adblock && href == location.href) return;
@@ -36,12 +43,15 @@ const f = async function (adblock = 1) {
       fetch(location.href).then(t => t.text())
         .then(t => {
           if (!$('#watch_dl, #__watch_dl').length)
-            $('#mainLoad>.msg_box.full').replaceWith($(t).find('.mbox+.msg_box').parent())
+            $('#mainLoad>.msg_box.full').replaceWith($(t).find('#watch_dl'))
           $('#watch_dl').attr('id', '__watch_dl');
           f(0);
         });
       return;
     }
+
+    $('.full_movie.table.full.mgb').after($('#__watch_dl'));
+
     let act;
     $('.dls_table').before(act = $('<strong/>', {
       class: 'msg_box notice i i-info activation egybetter',
@@ -92,9 +102,14 @@ const f = async function (adblock = 1) {
     else
       watchOverlay.css('top', 0);
 
-
-
-
+    top.nextEpisode = _ => {
+      if (nextEp.length) setTimeout(_ => watchOverlay.find('.next')[0].click(), 10);
+      return nextEp.length;
+    }
+    top.prevEpisode = _ => {
+      if (prevEp.length) setTimeout(_ => watchOverlay.find('.prev')[0].click(), 10);
+      return prevEp.length;
+    }
   }
 
 
