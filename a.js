@@ -3,35 +3,35 @@
 let href;
 let watchOverlay;
 let time;
-let getAnnouncement = _ => u.req('https://raw.githubusercontent.com/Sraq-Zit/egybetter/master/announcements.html')
-  .then(html => {
-    if (!html.trim()) return;
-    // I'm adding this here in case that last update was rejected because of some sort of suspicion that
-    // this might be fetching external scripts
-    if ($(html).find('script').length) return;
 
-    let box = $('.verticalDynamic>.mbox.egybetter');
-    if (!box.length && (box = $('.verticalDynamic>.mbox')))
-      box.before(box = box.clone().addClass('egybetter'));
+let box = $('.verticalDynamic>.mbox.egybetter');
+if (!box.length && (box = $('.verticalDynamic>.mbox')))
+  box.before(box = box.clone().addClass('egybetter'));
 
-    box.find('.bdb>strong').text('EgyBetter').attr('class', 'green');
-    box.find('.pda:not(.bdb)>strong')
-      .removeClass('red')
-      .css('text-align', 'right')
-      .html(html);
-  });
+box.find('.bdb>strong').text('EgyBetter').attr('class', 'green');
+box.find('.pda:not(.bdb)>strong')
+  .removeClass('red')
+  .css({ 'text-align': 'right', display: 'block' })
+  .html(`
+        ● الإضافة متوفرة الآن على
+        <a href="https://addons.mozilla.org/firefox/addon/egybetter/" target="_blank">فايرفوكس</a>
+        !
+        <br>
+        ● للإخبار عن المشاكل أو الاقتراحات والتعرف على الأخبار المتعلقة بالاضافة زورو
+        <a href="https://www.facebook.com/egybetter.support/" target="_blank">
+          صفحة الفيسبوك الخاصة بـEgybetter
+        </a>
+  `);
 
-top.onmessage = e => e.data.ad && chrome.runtime.sendMessage({ ad: 1 });
+fetch(browser.extension.getURL('annoucements.html'))
+  .then(t => t.text())
+  .then(html => $('body').prepend(html));
 
 document.onkeydown = e => { e.code == "Escape" && $('.i-min.egybetter')[0].click(); };
 const f = async function (adblock = 1) {
   if (adblock && href == location.href) return;
 
   href = location.href;
-
-  if (!time || Date.now() - time > 6e4)
-    getAnnouncement() && (time = Date.now());
-
 
   !/\/(movie|episode)\//g.test(location.href) &&
     watchOverlay && watchOverlay.hide().find('iframe').attr('src', 'about:blank');
@@ -110,6 +110,12 @@ const f = async function (adblock = 1) {
       if (prevEp.length) setTimeout(_ => watchOverlay.find('.prev')[0].click(), 10);
       return prevEp.length;
     }
+
+    top.onmessage = e => e.data.func.includes('Episode_egyb') &&
+      e.source.postMessage({
+        result: top[e.data.func.replace('_egyb', '')](),
+        token: e.data.token
+      }, e.origin);
   }
 
 
