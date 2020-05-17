@@ -1,8 +1,8 @@
 {
   "name": "EgyBetter",
-  "version": "3.2.4",
+  "version": "3.3.0",
   "manifest_version": 2,
-  "description": "مسح الاعلانات عن ايجي بيست بالاضافة لمزايا أخرى",
+  "description": "شاهد وحمل من ايجي بيست بدون عناء وبدون اعلانات",
   "browser_action": {
     "default_title": "EgyBetter",
     "default_icon": "icon.png"
@@ -11,19 +11,10 @@
     "128": "icon.png"
   },
   "permissions": [
-    "*://dlzm790g.com/*",
-    "*://velocitycdn.com/*",
-    "*://onclickmega.com/*",
-    "*://onclicksuper.com/*",
-    "*://deloton.com/*",
-    "*://go.onclasrv.com/*",
-    "*://www.youradexchange.com/*",
-    "*://c.adexchangemachine.com/*",
     "*://egybest.org/*",
     "*://vidstream.to/*",
     "*://vidstream.online/*",
     "*://vidstream.kim/*",
-    "*://native.propellerclick.com/*",
     "downloads",
     "webRequest",
     "cookies",

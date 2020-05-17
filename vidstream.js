@@ -25,8 +25,6 @@ top.postMessage({
   type: 'info_egybetter', host: location.host, activated: !$('.bigbutton._reload').length
 }, '*');
 
-console.log('Injected');
-
 if ($('.bigbutton._reload').length)
   $('.bigbutton._reload')[0].click();
 else {

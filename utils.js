@@ -143,8 +143,10 @@ $.ajax = function (data) {
 };
 
 const script = document.createElement('script');
-script.innerHTML = `window.open=function(url){fetch(url);return window};Function.prototype.t=Function.prototype.toString;Function.prototype.toString=function(){if(this == window.open)return"function open() { [native code] }";return this.t()}`;
+script.innerHTML = `window.open=function(url){self.postMessage({ad:url},'*');return window};Function.prototype.t=Function.prototype.toString;Function.prototype.toString=function(){if(this == window.open)return"function open() { [native code] }";return this.t()}`;
 document.documentElement.append(script);
+self.onmessage = e => e.data.ad && browser.runtime.sendMessage({ ad: $('<a/>', { href: e.data.ad })[0].href });
+
 const darkmode_switcher = $('<div/>', { id: 'egyb__darkmode_switcher' });
 if (localStorage.getItem('darkmode')) darkmode_switcher.addClass('egyb__darkmode');
 document.documentElement.append(darkmode_switcher[0]);

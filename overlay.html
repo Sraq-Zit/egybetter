@@ -7,11 +7,9 @@
         background-color: #000000e8; transition: all .5s ease-out; z-index: 1; pointer-events: none;"
         onclick="$(this).removeClass('fadeIn');"></div>
 
-    <a class="msg_box notice i i-pc" style=" opacity: 0.7; width: 80px; text-align: center;
-        position: absolute; left: 50%; top: 0; font-size: 1.7rem;
-        transform: translate(-50%, -50%); padding-bottom: 59px;
-        border-radius: 31px;" onclick="$('#__egyb_overlay').css('top', 0)">
-    </a>
+    <a class="msg_box notice i i-pc" style="opacity: 0.7; width: 80px; text-align: center; 
+    position: absolute; left: 50%; top: 0; font-size: 1.7rem; transform: translate(-50%, -100%); 
+    border-bottom: 0 !important; border-radius: 31px 31px 0 0;" onclick="$('#__egyb_overlay').css('top', 0)"> </a>
     <div class="mbox tam" style="max-width: 97vw; max-height: 96vh;">
         <div class="pda bdb hd tam">
             <a class="msg_box i i-close error egybetter" style="float: right; padding: 0 2px; margin: 0 5px;"
@@ -23,9 +21,11 @@
                     localStorage.setItem('hide_egyb_player', $(this).hasClass('i-unlock')? '' : 1);
                     $(this).toggleClass('i-unlock error');
                  "></a>
+
             <a class="msg_box i i-min notice egybetter" style="float: right; padding: 0 2px; margin: 0 5px;"
                 title="تنحية" onclick="$('#__egyb_overlay').css('top', '100%')"></a>
-            <a class="msg_box i i-old egybetter"
+
+            <a class="msg_box i i-old egybetter" title="إطفاء الأضواء"
                 style="float: right; padding: 0 2px; margin: 0 5px; z-index: 2; position: relative;" onclick="
                     $('#dim').toggleClass('fadeIn');
                  "></a>

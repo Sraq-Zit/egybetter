@@ -1,3 +1,10 @@
 a[href^='https://vidstream.top'] {
     display: none;
 }
+
+#video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

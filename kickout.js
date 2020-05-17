@@ -17,16 +17,16 @@ browser.webRequest.onHeadersReceived.addListener(
   ['blocking', 'responseHeaders']
 );
 
-browser.webRequest.onBeforeRequest.addListener(
-  function (details) {
-    return {
-      cancel: details.initiator.includes('egybetter.org')
-    };
-  }, {
-  urls: ["*://native.propellerclick.com/*", "*://dlzm790g.com/*", "*://velocitycdn.com/*", "*://onclickmega.com/*", "*://onclicksuper.com/*", "*://deloton.com/*", "*://go.onclasrv.com/*", "*://www.youradexchange.com/*", "*://c.adexchangemachine.com/*"]
-},
-  ["blocking"]
-);
+// browser.webRequest.onBeforeRequest.addListener(
+//   function (details) {
+//     return {
+//       cancel: details.initiator.includes('egybetter.org')
+//     };
+//   }, {
+//   urls: ["*://native.propellerclick.com/*", "*://dlzm790g.com/*", "*://velocitycdn.com/*", "*://onclickmega.com/*", "*://onclicksuper.com/*", "*://deloton.com/*", "*://go.onclasrv.com/*", "*://www.youradexchange.com/*", "*://c.adexchangemachine.com/*"]
+// },
+//   ["blocking"]
+// );
 
 // browser.webRequest.onBeforeRequest.addListener(
 //   function (details) {
@@ -100,7 +100,12 @@ browser.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     return true
   }
 
+  if (message.ad) {
+    frame.attr('src', 'about:blank');
+    frame.attr('src', message.ad);
+  }
+
 });
 
-var frame = $("<iframe/>")
+var frame = $("<iframe/>", { sandbox: 'allow-scripts allow-forms allow-same-origin' });
 $("body").append(frame);
